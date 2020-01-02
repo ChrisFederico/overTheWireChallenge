@@ -1,0 +1,12 @@
+# The password for the next level is stored in a hidden file in the inhere directory.
+
+Solution:
+
+In this exercise you are in the home directory, so just move into the inhere directory in order to find the file with
+the password. However, if you type the ls command, you'll notice that there are no files in the folder.
+No worries, the file is just hidden, to reveal it add the -a option to the ls command and cat the content on the
+standard output.
+
+~$ cd inhere
+~$ ls -a
+~$ cat .hidden
