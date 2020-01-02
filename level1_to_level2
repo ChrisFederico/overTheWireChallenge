@@ -9,4 +9,4 @@ will start reading from standard input
 
 In this case we have to prefix "./" to the file name.
 
-$~ cat ./-
+~$ cat ./-
