@@ -1,0 +1,73 @@
+# The password for the next level is stored in the file data.txt, which is a hexdump of a file that 
+# has been repeatedly compressed. For this level it may be useful to create a directory under /tmp in # which you can work using mkdir. For example: mkdir /tmp/myname123. Then copy the datafile using cp, # and rename it using mv (read the manpages!)
+
+Solution:
+
+This challenge is not so hard but is kinda long and repetitive, be sure to have permissions to read
+and write on the machine, otherwise you can still download/copy the content of the data.txt on your
+pc and solve the challenge locally. 
+
+The data.txt is a hex dump file you can reverse using a tool called xxd, this tool can output a
+hexadecimal or viceversa if you pass as argument a hex dump. xxd has an option -r you can use to
+reverse a hex dump into a binary file.
+
+Once the file is decoded, you need to figure out what do you have to do with it; using the file
+command, you can check what type of file it is and user a proper tool in order to open it or 
+manipulate it. So, after we converted the hex dump into a binary, using file we notice that it is
+a gzip compressed archive, so give it a proper extension using mv command and then decompress it
+using gzip.
+
+Repeat the process and use file to check which type of file we have created, it is a bzip2 archive,
+so we give it the extension bz2 and decompress it using bzip2 tool and repeat the previous steps.
+The procedure is the following:
+
+- check the type of the file with the file command;
+- if is an archive
+    - give it the right extension (gzip -> .gz, bzip2 -> bz2, ...);
+    - after that, use the proper decompression tool to extract the content of the archive 
+    (gzip, bzip2, tar, ecc.)
+- if not
+    - check the type of the file and use the proper tool to open it
+
+You should get to the point where you have a ASCII text, if so, just cat the content to obtain the
+password.
+
+TIP: you can create multiple copies of the file you have to manage, to avoid risks and go back to the
+start point.
+
+# Create a binary file from the hex dump
+~$ xxd -r data.txt data2
+
+# Let's check the type (is a gzip archive)
+~$ file data2
+
+# Rename it with the proper extension 
+~$ mv data2 data3.gz
+
+# Use gzip -d to decompress it, we get a file named data3
+~$ gzip -d data3.gz
+
+# Again, let's check the type (is a bzip2 archive)
+~$ file data3
+
+# Create a "checkpoint" copy
+~$ cp data3 data4.bz2
+
+# Decompress it using the proper tool (this time is bzip2), we obtain a file named data4
+~$ bzip2 -d data4.bz2
+
+# Check the extension (is a POSIX tar archive)
+~$ file data4
+
+# We can create a new checkpoint but I'll skip this passage
+
+# Decompress it using tar
+~$ tar -xvf data4 
+
+# ...And so forth making sure you use the right tool with the proper file (with the proper extension)
+# After a few iterations you should have this:
+~$ file name_of_file
+name_of_file: ASCII text
+
+# Just cat the content to obtain the password
+~$ cat name_of_file
