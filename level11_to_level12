@@ -1,0 +1,41 @@
+# The password for the next level is stored in the file data.txt, where all lowercase (a-z) and 
+# uppercase (A-Z) letters have been rotated by 13 positions
+
+Solution:
+
+In this challenge you have a data.txt file with ciphertext. As you can see, the ciphertext is 
+the result of a shift of the alphabet by 13 positions, if you ever heard about Caesar Cipher, this
+should not be new to you. The ROT13 algorithm is nothing more than a Caesar Cipher where the 
+shift key is 13. Our goal is to reverse the algorithm, practically, we have to "shift back" the
+letters in their original position.
+
+To do so, we have a nice command line tool called tr (alias for translate), that allows us to
+replace or delete characters in our ciphertext, we just have to pass two sets of characters as
+argument: the first set is the set of the characters we want to replace, the second set is the
+set of characters that will replace the previous. We specify these two sets in the tr command 
+as follows:
+
+tr 'a-zA-Z' 'n-za-mN-ZA-M' 
+
+We are indicating that all the characters from a to z and from A to Z will be replaced with 
+the characters from n to m and from N to M, so:
+- n will be replaced by a
+- o will be replaced by b
+- p will be replaced by c
+
+...and so on.
+
+Doing so on our cipher text we have:
+G -> T
+u -> h
+r -> e
+c -> p
+n -> a
+f -> s
+j -> w
+b -> o
+
+...and so on.
+To print on standard output the plaintext we pipe the tr command to cat command.
+
+~$ cat data.txt | tr 'a-zA-Z' 'n-za-mN-ZA-M'
