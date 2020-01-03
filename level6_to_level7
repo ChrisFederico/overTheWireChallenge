@@ -1,0 +1,23 @@
+# The password for the next level is stored somewhere on the server and has all of the following properties:
+
+# owned by user bandit7
+# owned by group bandit6
+# 33 bytes in size
+
+Solution:
+
+This one is easy and similar to the previous exercise, the only two things we have to keep in mind are the first two
+requirements, I'm pretty sure this is not the best way to proceed and I'll be glad to improve my solution, still, you can
+achieve the challenge anyway.
+
+As the previous challenge, using the find command piped with xargs we can craft a command in order to display a list of all
+the files stored that match the requirements: just use find / -type f -size 33c in order to get all the files from the root
+directory that match 33 bytes in size. In order to match group and owner we can use two other options from the find command,
+first one is -user and the second one is -group, just type the owner name and the group name that you are looking for
+(respectevely bandit7 and bandit6) and you're done.
+
+Notice that you have a list of files you don't have permissions to access to, in order to find the one that you need in this
+list, you can pipe xargs with the ls -la command, so you can display the owner and the group in the list and get the path
+of the file with the password. Finally just cat the content of the file you need.
+
+~$ find / -type f -size 33c -user bandit7 -group bandit6 | xargs ls -la
