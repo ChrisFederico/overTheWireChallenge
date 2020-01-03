@@ -1,9 +1,0 @@
-# The password for the next level is stored in a file called "spaces in this filename" located in the home directory
-
-Solution:
-
-Spaces are tricky in unix terminals, if you use cd or cat commands to access directories or files with spaces in its name, 
-the result will be a "no such file or directory error". To write these particular file names, use the \ character before 
-every space.
-
-~$ cat spaces\ in\ this\ filename  
