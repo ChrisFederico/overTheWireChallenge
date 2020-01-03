@@ -1,0 +1,9 @@
+# The password for the next level is stored in the file data.txt, which contains base64 encoded data
+
+SOLUTION:
+
+In this scenario you have a base64 encoded text file, lucky you, we have a simple command line tool called base64 that
+we can use in order to decode the file by simply adding the -d option. I still recommend to not to use the tool until you
+fully understand how base64 encoding/decoding works and, once you figure it out, take a look at the base64 unix manual.
+
+~$ base64 -d data.txt
