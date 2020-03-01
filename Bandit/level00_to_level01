@@ -5,5 +5,6 @@
 Solution:
 
 In this level you just need to print the readme file content on stdout.
-~$ ls
+Make sure you are in the directory where the readme file is located, then type the following command:
+
 ~$ cat readme
